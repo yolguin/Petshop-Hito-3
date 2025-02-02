@@ -1,0 +1,74 @@
+[
+  {
+    "desc": "Alimento ideal para perros de razas pequeñas con estomago sensible",
+    "id": "p001",
+    "img": "https://i.ibb.co/9H3dv7z4/dog-hills-sensitive.jpg",
+    "marca": "Hill's",
+    "name": "Adult Sensitive Stomach & Skin",
+    "price": "28990",
+    "sku": "20356456",
+    "categoria": "perro",
+    "subcategoria": "alimento",
+    "cantidad": "20"
+  },
+  {
+    "desc": "Alimento formulado para ayudar a mantener la función hepática",
+    "id": "p002",
+    "img": "https://i.ibb.co/7tfjK0KW/cat-royalcanin-hepatic.jpg",
+    "marca": "Royal Canin",
+    "name": "Alimento gato adulto hepatic",
+    "price": 20990,
+    "sku": "458567",
+    "categoria": "gato",
+    "subcategoria": "alimento",
+    "cantidad": "10"
+  },
+  {
+    "desc": "Alimento natural para gatos adultos esterilizados",
+    "id": "p003",
+    "img": "https://i.ibb.co/ZRWS8GBv/cat-amity-sterilized.jpg",
+    "marca": "Amity",
+    "name": "Amity Adult low grain salmon sterilized",
+    "price": 20490,
+    "sku": "",
+    "categoria": "",
+    "subcategoria": "",
+    "cantidad": ""
+  },
+  {
+    "desc": "Shampoo para pieles sensible, ideal para perros y gatos",
+    "id": "p004",
+    "img": "https://i.ibb.co/TBDQzggH/dog-coolpet-shampoo.jpg",
+    "marca": "Coolpet",
+    "name": "Shampoo para pieles sensibles",
+    "price": 9990,
+    "sku": "",
+    "categoria": "",
+    "subcategoria": "",
+    "cantidad": ""
+  },
+  {
+    "desc": "Alimento dietético completo para controlar la diabetes en gatos",
+    "id": "p005",
+    "img": "https://i.ibb.co/1YnsfnbS/cat-vetlife-diabetic.jpg",
+    "marca": "Vetlife",
+    "name": "Vetlife farmina alimento seco diabetic",
+    "price": 26990,
+    "sku": "",
+    "categoria": "",
+    "subcategoria": "",
+    "cantidad": ""
+  },
+  {
+    "desc": "Moderno juguete de cuerda de algodón natural",
+    "id": "p006",
+    "img": "https://i.ibb.co/G4Jp94fX/dog-mpets-ball.jpg",
+    "marca": "Mpets",
+    "name": "Coto white ball Hypoallergenic",
+    "price": 4990,
+    "sku": "",
+    "categoria": "",
+    "subcategoria": "",
+    "cantidad": ""
+  }
+]
