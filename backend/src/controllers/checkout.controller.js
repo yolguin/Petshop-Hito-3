@@ -10,11 +10,25 @@ const create = async (req, res) => {
       return res.status(400).json({ error: "El carrito está vacío" });
     }
 
-    // Calcular el total del pedido
+    // Calcular el total del pedido trayendo los precios de la base de datos
     let total_price = 0;
-    cart.forEach((item) => {
-      total_price += item.price * item.quantity;
-    });
+
+    for (const item of cart) {
+      const productResult = await pool.query(
+        "SELECT precio FROM productos WHERE id = $1", // 🔹 Cambiado de `price` a `precio`
+        [item.product_id]
+      );
+
+      if (productResult.rows.length === 0) {
+        return res.status(400).json({ error: `Producto con ID ${item.product_id} no encontrado` });
+      }
+
+      const product_price = productResult.rows[0].precio; // 🔹 Usamos `precio`
+      total_price += product_price * item.quantity;
+
+      // Guardar el precio en cada `item` para usarlo en `order_items`
+      item.precio = product_price;
+    }
 
     // Insertar el pedido en la tabla `orders`
     const orderResult = await pool.query(
@@ -28,7 +42,7 @@ const create = async (req, res) => {
     for (const item of cart) {
       await pool.query(
         "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES ($1, $2, $3, $4)",
-        [order_id, item.id, item.quantity, item.price]
+        [order_id, item.product_id, item.quantity, item.precio] // 🔹 Usamos `item.precio` corregido
       );
     }
 
@@ -38,6 +52,7 @@ const create = async (req, res) => {
       total_price: total_price,
       user: req.user,
     });
+
   } catch (error) {
     console.error("Error en checkout:", error);
     return res.status(500).json({ error: "Error interno del servidor" });

@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { authModel } from "../models/auth.model.js";
 import { isValidEmail } from "../utils/validators/email.validate.js";
 
-const login = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const { email = "", password = "" } = req.body;
 
@@ -16,7 +16,6 @@ const login = async (req, res) => {
       return res.status(400).json({ error: "Invalid credentials" });
     }
 
-    // 🔹 Agregamos el rol al token JWT
     const payload = { email, id: Number(user.id), rol: user.rol };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
 
@@ -27,8 +26,7 @@ const login = async (req, res) => {
   }
 };
 
-
-const register = async (req, res) => {
+export const register = async (req, res) => {
   try {
     const { email = "", password = "" } = req.body;
 
@@ -49,10 +47,7 @@ const register = async (req, res) => {
       return res.status(400).json({ error: "User already exists" });
     }
 
-    // 🔹 Guardar usuario en PostgreSQL y obtener el ID generado
     const newUser = await authModel.addUser({ email, password });
-
-    // 🔹 Convertimos `id` a número antes de generar el token
     const payload = { email, id: Number(newUser.id) };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
 
@@ -63,7 +58,7 @@ const register = async (req, res) => {
   }
 };
 
-const me = async (req, res) => {
+export const me = async (req, res) => {
   try {
     const { email } = req.user;
     const user = await authModel.getUserByEmail(email);
@@ -74,8 +69,7 @@ const me = async (req, res) => {
   }
 };
 
-export const authController = {
-  login,
-  register,
-  me,
-};
+// ✅ Nueva exportación compatible con servidor y pruebas
+const authController = { login, register, me };
+export default authController;
+

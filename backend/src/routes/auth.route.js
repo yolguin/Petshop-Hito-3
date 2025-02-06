@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { authController } from "../controllers/auth.controller.js";
+import authController from "../controllers/auth.controller.js"; // Importación corregida
 import { authMiddleware } from "../middlewares/auth.middleware.js";
-import { adminMiddleware } from "../middlewares/role.middleware.js"; // Importamos el middleware de admin
+import { adminMiddleware } from "../middlewares/role.middleware.js"; // Middleware de admin
 
 const router = Router();
 
@@ -15,3 +15,4 @@ router.get("/admin-only", authMiddleware, adminMiddleware, (req, res) => {
 });
 
 export default router;
+
