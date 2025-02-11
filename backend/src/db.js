@@ -15,8 +15,9 @@ const pool = new Pool({
 
 // Probar conexión
 pool.connect()
-  .then(() => console.log('✅ Conexión exitosa a PostgreSQL'))
-  .catch(err => console.error('❌ Error conectando a PostgreSQL:', err));
+  .then(() => console.info('✅ Conexión establecida con PostgreSQL'))
+  .catch(err => console.error('❌ Error al conectar a PostgreSQL:', err.message));
 
 export default pool;
+
 

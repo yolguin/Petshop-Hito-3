@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "../../index.js"; 
+import app from "../../index.js";
 
 describe("Pruebas de Autenticación", () => {
   test("Debe registrar un usuario nuevo", async () => {
@@ -10,8 +10,6 @@ describe("Pruebas de Autenticación", () => {
       password: "123456"
     });
 
-    console.log("🔍 Respuesta del servidor:", res.body);
-
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("token");
   });
@@ -21,8 +19,6 @@ describe("Pruebas de Autenticación", () => {
       email: "cliente@petshop.com",
       password: "cliente123"
     });
-
-    console.log("🔍 Respuesta del servidor:", res.body);
 
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("token");
@@ -40,8 +36,6 @@ describe("Pruebas de Autenticación", () => {
       .get("/api/auth/me")
       .set("Authorization", `Bearer ${token}`);
 
-    console.log("🔍 Respuesta del servidor:", res.body);
-
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("email");
   });
@@ -52,8 +46,6 @@ describe("Pruebas de Autenticación", () => {
         { id: 2, cantidad: 1, precio: 20990 }
       ]
     });
-
-    console.log("🔍 Respuesta del servidor:", res.body);
 
     expect(res.statusCode).toBe(401);
     expect(res.body).toHaveProperty("error");
