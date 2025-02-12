@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react"
 import { Button, Table, Modal, Form, Card } from "react-bootstrap"
 
+const API_URL = import.meta.env.VITE_API_URL // ✅ Usar variable de entorno
+
 const Admin = () => {
   const [products, setProducts] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
@@ -22,7 +24,7 @@ const Admin = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/productos")
+      const response = await fetch(`${API_URL}/api/productos`) // ✅ Usar API_URL
       const data = await response.json()
       setProducts(data)
     } catch (error) {
@@ -45,7 +47,7 @@ const Admin = () => {
   const handleAddProduct = async (e) => {
     e.preventDefault()
     try {
-      const response = await fetch("http://localhost:5000/api/productos", {
+      const response = await fetch(`${API_URL}/api/productos`, { // ✅ Usar API_URL
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(addFormData),
@@ -71,7 +73,7 @@ const Admin = () => {
   const handleEditSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await fetch(`http://localhost:5000/api/productos/${editProduct.id}`, {
+      const response = await fetch(`${API_URL}/api/productos/${editProduct.id}`, { // ✅ Usar API_URL
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editFormData),
@@ -90,7 +92,7 @@ const Admin = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/productos/${id}`, { method: "DELETE" })
+      const response = await fetch(`${API_URL}/api/productos/${id}`, { method: "DELETE" }) // ✅ Usar API_URL
 
       if (!response.ok) {
         throw new Error("Error eliminando el producto")

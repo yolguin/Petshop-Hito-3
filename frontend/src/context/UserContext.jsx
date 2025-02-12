@@ -1,72 +1,70 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState } from 'react' 
 
 const UserContext = createContext()
+
+const API_URL = import.meta.env.VITE_API_URL // ✅ Usar variable de entorno
 
 // eslint-disable-next-line react/prop-types
 export const UserProvider = ({ children }) => {
   const [token, setToken] = useState(null)
   const [email, setEmail] = useState(null)
 
+  const login = async (email, password) => {
+    try {
+      const response = await fetch(`${API_URL}/api/auth/login`, {  // ✅ Usar API_URL
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      })
 
-const login = async (email, password) => {
-  try {
-    const response = await fetch('http://localhost:5000/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email, password })
-    })
+      if (!response.ok) {
+        const errorText = await response.text()
+        throw new Error(errorText || 'Error en la autenticación')
+      }
 
-    if (!response.ok) {
-      const errorText = await response.text()
-      throw new Error(errorText || 'Error en la autenticación')
+      const data = await response.json()
+      setToken(data.token)
+      setEmail(email)
+    } catch (error) {
+      console.error('Error en login:', error.message)
+      alert('Error en login: ' + error.message)
     }
-
-    const data = await response.json()
-    setToken(data.token)
-    setEmail(email)
-  } catch (error) {
-    console.error('Error en login:', error.message)
-    alert('Error en login: ' + error.message)
   }
-}
 
+  const register = async (email, password) => {
+    try {
+      const response = await fetch(`${API_URL}/api/auth/register`, {  // ✅ Usar API_URL
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      })
 
-const register = async (email, password) => {
-  try {
-    const response = await fetch('http://localhost:5000/api/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email, password })
-    })
+      if (!response.ok) {
+        const errorText = await response.text()
+        throw new Error(errorText || 'Error en el registro')
+      }
 
-    if (!response.ok) {
-      const errorText = await response.text()
-      throw new Error(errorText || 'Error en el registro')
+      const data = await response.json()
+      setToken(data.token)
+      setEmail(email)
+    } catch (error) {
+      console.error('Error en registro:', error.message)
+      alert('Error en registro: ' + error.message)
     }
-
-    const data = await response.json()
-    setToken(data.token)
-    setEmail(email)
-  } catch (error) {
-    console.error('Error en registro:', error.message)
-    alert('Error en registro: ' + error.message)
   }
-}
-
 
   const logout = () => {
     setToken(null)
     setEmail(null)
   }
 
-
   const getProfile = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/auth/me', {
+      const response = await fetch(`${API_URL}/api/auth/me`, {  // ✅ Usar API_URL
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`

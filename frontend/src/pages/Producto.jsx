@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useCart } from '../context/CartContext'
 
-const urlTipoProducto = "http://localhost:5000/api/productos"
+const API_URL = import.meta.env.VITE_API_URL // ✅ Usar variable de entorno
+const urlTipoProducto = `${API_URL}/api/productos` // ✅ URL dinámica
 
 const Producto = () => {
     const { id } = useParams()
@@ -21,7 +22,6 @@ const Producto = () => {
                 throw new Error('Error en la URL')
             }
             const data = await response.json()
-            console.log(data)
             setProducto(data)
         } catch (error) {
             console.error('Error:', error)

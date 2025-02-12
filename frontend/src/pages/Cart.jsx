@@ -2,6 +2,8 @@ import { useCart } from '../context/CartContext'
 import { useUser } from '../context/UserContext'
 import { useState } from 'react'
 
+const API_URL = import.meta.env.VITE_API_URL // ✅ Usar variable de entorno
+
 const Cart = () => {
   const { cart, addProducto, removeProducto, reduceProducto, totalQuantity, totalPrice, clearCart } = useCart()
   const { token } = useUser()
@@ -9,7 +11,7 @@ const Cart = () => {
 
   const handleCheckout = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/checkouts', {
+      const response = await fetch(`${API_URL}/api/checkouts`, { // ✅ Usar API_URL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
